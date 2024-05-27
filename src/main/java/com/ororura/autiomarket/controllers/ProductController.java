@@ -15,13 +15,11 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-    private final ImageService imageService;
     private final ProductRepo productRepo;
     private final ProductService productService;
 
     @Autowired
-    public ProductController(ImageService imageService, ProductRepo productRepo, ProductService productService) {
-        this.imageService = imageService;
+    public ProductController(ProductRepo productRepo, ProductService productService) {
         this.productRepo = productRepo;
         this.productService = productService;
     }

@@ -33,8 +33,8 @@ public class AppConfig {
     }
 
     @Bean
-    public ProductService productService(ProductRepo productRepo, ObjectMapper objectMapper) {
-        return new ProductService(productRepo, objectMapper);
+    public ProductService productService(ProductRepo productRepo) {
+        return new ProductService(productRepo);
     }
 
 }

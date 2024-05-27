@@ -13,12 +13,10 @@ import java.io.IOException;
 @Service
 public class ProductService {
     private final ProductRepo productRepo;
-    private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, ObjectMapper objectMapper) {
+    public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-        this.objectMapper = objectMapper;
     }
 
     public void saveProduct(Product product, MultipartFile file) throws IOException {
@@ -29,7 +27,7 @@ public class ProductService {
     public Image fileToImage(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setData(file.getBytes());
-        image.setName(file.getName());
+        image.setName(file.getOriginalFilename());
         return image;
     }
 

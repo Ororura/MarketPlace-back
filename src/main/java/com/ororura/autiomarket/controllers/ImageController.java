@@ -32,13 +32,13 @@ public class ImageController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
-        Image image = imageService.getImage(id);
+    @GetMapping("/{name}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String name) {
+        byte[] image = imageService.getImage(name);
         if (image != null) {
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
-                    .body(image.getData());
+                    .body(image);
         } else {
             return ResponseEntity.notFound().build();
         }
