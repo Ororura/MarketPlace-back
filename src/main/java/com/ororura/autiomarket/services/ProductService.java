@@ -21,8 +21,7 @@ public class ProductService {
         this.objectMapper = objectMapper;
     }
 
-    public void saveProduct(String productJson, MultipartFile file) throws IOException {
-        Product product = objectMapper.readValue(productJson, Product.class);
+    public void saveProduct(Product product, MultipartFile file) throws IOException {
         product.setImage(fileToImage(file));
         productRepo.save(product);
     }

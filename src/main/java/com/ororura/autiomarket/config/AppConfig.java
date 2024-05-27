@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.multipart.MultipartResolver;
 
 @Configuration
 public class AppConfig {
@@ -35,4 +36,5 @@ public class AppConfig {
     public ProductService productService(ProductRepo productRepo, ObjectMapper objectMapper) {
         return new ProductService(productRepo, objectMapper);
     }
+
 }
