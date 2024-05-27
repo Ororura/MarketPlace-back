@@ -1,0 +1,18 @@
+version: '3'
+services:
+  database:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: audio
+    ports:
+      - '7432:5432'
+
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@mail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - '5050:80'
