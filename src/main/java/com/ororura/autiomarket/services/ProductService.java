@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ororura.autiomarket.entities.Image;
 import com.ororura.autiomarket.entities.Product;
 import com.ororura.autiomarket.repositories.ProductRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,11 +20,13 @@ public class ProductService {
         this.productRepo = productRepo;
     }
 
+    @Transactional
     public void saveProduct(Product product, MultipartFile file) throws IOException {
         product.setImage(fileToImage(file));
         productRepo.save(product);
     }
 
+    @Transactional
     public Image fileToImage(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setData(file.getBytes());
