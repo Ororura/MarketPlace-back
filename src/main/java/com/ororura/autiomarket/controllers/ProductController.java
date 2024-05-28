@@ -2,7 +2,6 @@ package com.ororura.autiomarket.controllers;
 
 import com.ororura.autiomarket.entities.Product;
 import com.ororura.autiomarket.repositories.ProductRepo;
-import com.ororura.autiomarket.services.ImageService;
 import com.ororura.autiomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
