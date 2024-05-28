@@ -39,4 +39,10 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteProduct(@PathVariable("id") Long id) {
+        this.productRepo.deleteById(id);
+    }
+
 }
