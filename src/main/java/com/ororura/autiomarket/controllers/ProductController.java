@@ -25,8 +25,8 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productRepo.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
 
     @PostMapping("/upload")

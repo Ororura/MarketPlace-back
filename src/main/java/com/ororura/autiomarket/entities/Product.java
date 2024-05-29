@@ -1,9 +1,6 @@
 package com.ororura.autiomarket.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")

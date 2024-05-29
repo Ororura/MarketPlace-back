@@ -1,6 +1,5 @@
 package com.ororura.autiomarket.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ororura.autiomarket.repositories.ImageRepo;
 import com.ororura.autiomarket.repositories.ProductRepo;
 import com.ororura.autiomarket.services.ImageService;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.multipart.MultipartResolver;
 
 @Configuration
 public class AppConfig {
