@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) throws IOException {
+    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
             return ResponseEntity.status(HttpStatus.CREATED).build();
