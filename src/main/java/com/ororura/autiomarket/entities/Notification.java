@@ -14,7 +14,7 @@ public class Notification {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Product product;
 

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final NotificationService notificationService;
@@ -27,7 +28,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/products")
+    @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
@@ -39,7 +40,7 @@ public class ProductController {
         return this.notificationService.findAllNotifications();
     }
 
-    @PostMapping("/upload")
+    @PostMapping
     public ResponseEntity<List<Notification>> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             Notification notification = new Notification();
@@ -53,7 +54,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id) {
         this.productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK).build();

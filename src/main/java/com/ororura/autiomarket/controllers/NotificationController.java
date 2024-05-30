@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
@@ -20,7 +22,7 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping("/notifications")
+    @GetMapping
     public ResponseEntity<List<Notification>> getNotifications() {
         return new ResponseEntity<>(this.notificationService.findAllNotifications(), HttpStatus.OK);
     }
