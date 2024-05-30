@@ -32,6 +32,10 @@ public class ProductService {
     }
 
     @Transactional
+    public void deleteProduct(Long id) {
+        this.productRepo.deleteById(id);
+    }
+
     public Image fileToImage(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setData(file.getBytes());
