@@ -1,5 +1,6 @@
 package com.ororura.autiomarket.services;
 
+import com.ororura.autiomarket.dtos.ProductDTO;
 import com.ororura.autiomarket.entities.Image;
 import com.ororura.autiomarket.entities.Product;
 import com.ororura.autiomarket.repositories.ProductRepo;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -21,8 +23,8 @@ public class ProductService {
     }
 
     @Transactional
-    public List<Product> getAllProducts() {
-        return this.productRepo.findAll();
+    public List<ProductDTO> getAllProducts() {
+        return convertToDTO(this.productRepo.findAll());
     }
 
     @Transactional
@@ -43,5 +45,18 @@ public class ProductService {
         return image;
     }
 
-
+    public List<ProductDTO> convertToDTO(List<Product> products) {
+        return products.stream().map(product -> {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(product.getId());
+            productDTO.setDescription(product.getDescription());
+            productDTO.setTitle(product.getTitle());
+            productDTO.setCategory(product.getCategory());
+            if (product.getImage() != null) {
+                productDTO.setImageName(product.getImage().getName());
+            }
+            productDTO.setRate(product.getRate());
+            return productDTO;
+        }).collect(Collectors.toList());
+    }
 }

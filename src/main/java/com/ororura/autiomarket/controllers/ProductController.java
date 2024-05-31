@@ -1,5 +1,6 @@
 package com.ororura.autiomarket.controllers;
 
+import com.ororura.autiomarket.dtos.ProductDTO;
 import com.ororura.autiomarket.entities.Notification;
 import com.ororura.autiomarket.entities.Product;
 import com.ororura.autiomarket.services.NotificationService;
@@ -29,7 +30,7 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
 
