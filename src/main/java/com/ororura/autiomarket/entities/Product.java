@@ -33,6 +33,4 @@ public class Product {
     @Column(name = "rate")
     private double rate;
 
-    public Product() {}
-
 }
