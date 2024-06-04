@@ -8,8 +8,6 @@ import com.ororura.autiomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,12 +18,10 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final NotificationService notificationService;
 
     @Autowired
-    public ProductController(ProductService productService, NotificationService notificationService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.notificationService = notificationService;
     }
 
 
@@ -34,24 +30,13 @@ public class ProductController {
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
 
-
-    @MessageMapping("/createProduct")
-    @SendTo("/topic/notifications")
-    public List<Notification> test() {
-        return this.notificationService.findAllNotifications();
-    }
-
     @PostMapping
-    public ResponseEntity<List<Notification>> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
+    public ResponseEntity<String> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
-            Notification notification = new Notification();
-            notification.setProduct(product);
-            notification.setStatus("created");
             productService.saveProduct(product, file);
-            notificationService.saveNotifications(notification);
-            return new ResponseEntity<>(this.notificationService.findAllNotifications(), HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("Product uploaded successfully!");
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading product");
         }
     }
 
