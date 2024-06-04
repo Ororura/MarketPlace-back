@@ -35,8 +35,8 @@ public class ProductController {
     }
 
 
-    @MessageMapping("/test")
-    @SendTo("/topic/test")
+    @MessageMapping("/createProduct")
+    @SendTo("/topic/notifications")
     public List<Notification> test() {
         return this.notificationService.findAllNotifications();
     }

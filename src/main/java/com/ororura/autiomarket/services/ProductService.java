@@ -46,17 +46,13 @@ public class ProductService {
     }
 
     public List<ProductDTO> convertToDTO(List<Product> products) {
-        return products.stream().map(product -> {
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setId(product.getId());
-            productDTO.setDescription(product.getDescription());
-            productDTO.setTitle(product.getTitle());
-            productDTO.setCategory(product.getCategory());
-            if (product.getImage() != null) {
-                productDTO.setImageName(product.getImage().getName());
-            }
-            productDTO.setRate(product.getRate());
-            return productDTO;
-        }).collect(Collectors.toList());
+        return products.stream().map(product -> new ProductDTO(product.getId(),
+                        product.getTitle(),
+                        product.getPrice(),
+                        product.getDescription(),
+                        product.getCategory(),
+                        product.getImage().getName(),
+                        product.getRate())).
+                collect(Collectors.toList());
     }
 }
