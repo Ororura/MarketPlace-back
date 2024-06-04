@@ -1,9 +1,7 @@
 package com.ororura.autiomarket.controllers;
 
 import com.ororura.autiomarket.dtos.ProductDTO;
-import com.ororura.autiomarket.entities.Notification;
 import com.ororura.autiomarket.entities.Product;
-import com.ororura.autiomarket.services.NotificationService;
 import com.ororura.autiomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +29,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<String> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
+    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
-            return ResponseEntity.status(HttpStatus.OK).body("Product uploaded successfully!");
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading product");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
     }
 
     @DeleteMapping("/{id}")
