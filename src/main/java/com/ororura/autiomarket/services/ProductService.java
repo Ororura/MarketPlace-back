@@ -2,7 +2,6 @@ package com.ororura.autiomarket.services;
 
 import com.ororura.autiomarket.dtos.ProductDTO;
 import com.ororura.autiomarket.entities.Image;
-import com.ororura.autiomarket.entities.Notification;
 import com.ororura.autiomarket.entities.Product;
 import com.ororura.autiomarket.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
@@ -17,12 +16,10 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
     private final ProductRepo productRepo;
-    private final NotificationService notificationService;
 
     @Autowired
-    public ProductService(ProductRepo productRepo, NotificationService notificationService) {
+    public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
-        this.notificationService = notificationService;
     }
 
     @Transactional
@@ -32,11 +29,6 @@ public class ProductService {
 
     @Transactional
     public void saveProduct(Product product, MultipartFile file) throws IOException {
-        Notification notification = new Notification();
-        notification.setProduct(product);
-        notification.setStatus("created");
-        notificationService.saveNotifications(notification);
-
         product.setImage(fileToImage(file));
         productRepo.save(product);
     }
@@ -54,17 +46,13 @@ public class ProductService {
     }
 
     public List<ProductDTO> convertToDTO(List<Product> products) {
-        return products.stream().map(product -> {
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setId(product.getId());
-            productDTO.setDescription(product.getDescription());
-            productDTO.setTitle(product.getTitle());
-            productDTO.setCategory(product.getCategory());
-            if (product.getImage() != null) {
-                productDTO.setImageName(product.getImage().getName());
-            }
-            productDTO.setRate(product.getRate());
-            return productDTO;
-        }).collect(Collectors.toList());
+        return products.stream().map(product -> new ProductDTO(product.getId(),
+                        product.getTitle(),
+                        product.getPrice(),
+                        product.getDescription(),
+                        product.getCategory(),
+                        product.getImage().getName(),
+                        product.getRate())).
+                collect(Collectors.toList());
     }
 }
