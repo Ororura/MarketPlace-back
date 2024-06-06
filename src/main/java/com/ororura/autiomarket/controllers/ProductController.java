@@ -1,7 +1,7 @@
 package com.ororura.autiomarket.controllers;
 
 import com.ororura.autiomarket.dtos.ProductDTO;
-import com.ororura.autiomarket.entities.Product;
+import com.ororura.autiomarket.entities.product.Product;
 import com.ororura.autiomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("products")
 public class ProductController {
     private final ProductService productService;
 
@@ -25,7 +25,13 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        System.out.println("123123");
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public String hello() {
+        return "Hello world!";
     }
 
     @PostMapping
@@ -36,7 +42,6 @@ public class ProductController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
     @DeleteMapping("/{id}")

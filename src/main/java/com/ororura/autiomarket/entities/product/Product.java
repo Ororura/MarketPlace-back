@@ -1,5 +1,6 @@
-package com.ororura.autiomarket.entities;
+package com.ororura.autiomarket.entities.product;
 
+import com.ororura.autiomarket.entities.image.Image;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,9 +1,9 @@
 package com.ororura.autiomarket.services;
 
 import com.ororura.autiomarket.dtos.ProductDTO;
-import com.ororura.autiomarket.entities.Image;
-import com.ororura.autiomarket.entities.Notification;
-import com.ororura.autiomarket.entities.Product;
+import com.ororura.autiomarket.entities.image.Image;
+import com.ororura.autiomarket.entities.notification.Notification;
+import com.ororura.autiomarket.entities.product.Product;
 import com.ororura.autiomarket.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +60,7 @@ public class ProductService {
             productDTO.setDescription(product.getDescription());
             productDTO.setTitle(product.getTitle());
             productDTO.setCategory(product.getCategory());
+            productDTO.setPrice(product.getPrice());
             if (product.getImage() != null) {
                 productDTO.setImageName(product.getImage().getName());
             }

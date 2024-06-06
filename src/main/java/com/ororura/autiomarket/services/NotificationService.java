@@ -1,6 +1,6 @@
 package com.ororura.autiomarket.services;
 
-import com.ororura.autiomarket.entities.Notification;
+import com.ororura.autiomarket.entities.notification.Notification;
 import com.ororura.autiomarket.repositories.NotificationRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

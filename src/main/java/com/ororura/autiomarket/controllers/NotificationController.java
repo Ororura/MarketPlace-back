@@ -1,6 +1,6 @@
 package com.ororura.autiomarket.controllers;
 
-import com.ororura.autiomarket.entities.Notification;
+import com.ororura.autiomarket.entities.notification.Notification;
 import com.ororura.autiomarket.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
