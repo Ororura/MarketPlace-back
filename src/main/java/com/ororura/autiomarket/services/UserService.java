@@ -1,6 +1,6 @@
 package com.ororura.autiomarket.services;
 
-import com.ororura.autiomarket.entities.user.User;
+import com.ororura.autiomarket.entities.user.UserEntity;
 import com.ororura.autiomarket.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,11 +17,11 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public void createUser(User user) {
-        this.userRepo.save(user);
+    public void createUser(UserEntity userEntity) {
+        this.userRepo.save(userEntity);
     }
 
-    public User getByUsername(String username) {
+    public UserEntity getByUsername(String username) {
         return userRepo.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
 
@@ -31,8 +31,8 @@ public class UserService {
         return this::getByUsername;
     }
 
-    public User getCurrentUser() {
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+    public UserEntity getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 }

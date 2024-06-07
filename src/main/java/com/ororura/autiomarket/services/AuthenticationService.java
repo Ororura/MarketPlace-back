@@ -1,10 +1,14 @@
 package com.ororura.autiomarket.services;
 
+import com.ororura.autiomarket.dtos.SignInDTO;
 import com.ororura.autiomarket.dtos.SignUpDTO;
 import com.ororura.autiomarket.entities.user.Role;
+import com.ororura.autiomarket.entities.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +24,23 @@ public class AuthenticationService {
 
         var user = User.builder()
                 .username(request.getUsername())
+                .roles("user")
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(String.valueOf(Role.ROLE_USER))
                 .build();
 
-        userService.createUser((com.ororura.autiomarket.entities.user.User) user);
+        UserEntity newUser = new UserEntity();
+        newUser.setRole(Role.ROLE_USER);
+        newUser.setUsername(request.getUsername());
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        userService.createUser(newUser);
+
+        return jwtService.generateJwtToken(user);
+    }
+
+    public String signIn(SignInDTO signInDTO) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInDTO.getUsername(), signInDTO.getPassword()));
+        UserDetails user = userService.userDetailsService().loadUserByUsername(signInDTO.getUsername());
 
         return jwtService.generateJwtToken(user);
     }

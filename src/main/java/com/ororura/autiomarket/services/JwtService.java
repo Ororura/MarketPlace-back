@@ -2,6 +2,7 @@ package com.ororura.autiomarket.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class JwtService {
 
         return Jwts.builder()
                 .subject((user.getUsername()))
+                .issuer("asdasd")
                 .issuedAt(new Date())
                 .expiration(new Date((new Date()).getTime() + 60000000))
                 .signWith(getSigningKey())
@@ -32,12 +34,12 @@ public class JwtService {
                 .getPayload();
     }
 
-    public String extractUsername(String token) {
+    public String extractUserName(String token) {
         return extractAllClaims(token).getSubject();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        final String username = extractUserName(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
