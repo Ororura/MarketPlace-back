@@ -34,7 +34,10 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registration(SignUpDTO signUpDTO) {
+    public String registration() {
+        SignUpDTO signUpDTO = new SignUpDTO();
+        signUpDTO.setUsername("dgdfgfdgfdgdfg");
+        signUpDTO.setPassword("kek");
         return this.authenticationService.signUp(signUpDTO);
     }
 }

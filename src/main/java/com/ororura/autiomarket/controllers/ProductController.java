@@ -25,13 +25,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        System.out.println("123123");
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
-    }
-
-    @GetMapping("/test")
-    public String hello() {
-        return "Hello world!";
     }
 
     @PostMapping

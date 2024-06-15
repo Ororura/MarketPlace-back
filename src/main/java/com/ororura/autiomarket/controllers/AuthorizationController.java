@@ -1,7 +1,6 @@
 package com.ororura.autiomarket.controllers;
 
 import com.ororura.autiomarket.dtos.SignInDTO;
-import com.ororura.autiomarket.dtos.SignUpDTO;
 import com.ororura.autiomarket.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ public class AuthorizationController {
     @GetMapping
     public String signIn() {
         SignInDTO signInDTO = new SignInDTO();
-        signInDTO.setUsername("lol");
+        signInDTO.setUsername("bbbbb");
         signInDTO.setPassword("kek");
         String token = authenticationService.signIn(signInDTO);
         System.out.println(token);
