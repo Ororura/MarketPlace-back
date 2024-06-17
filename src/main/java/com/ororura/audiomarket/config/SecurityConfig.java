@@ -1,6 +1,6 @@
 package com.ororura.audiomarket.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,12 +21,14 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
-    DataSource dataSource;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
-    private AuthEntryPointJwt unauthorizedHandler;
+    @Autowired
+    public SecurityConfig(AuthEntryPointJwt unauthorizedHandler) {
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter() {
@@ -46,7 +48,6 @@ public class SecurityConfig {
                                 SessionCreationPolicy.STATELESS)
         );
         http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
-        //http.httpBasic(withDefaults());
         http.headers(headers -> headers
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
                 )

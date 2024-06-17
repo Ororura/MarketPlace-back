@@ -1,9 +1,9 @@
 package com.ororura.audiomarket.services;
 
 import com.ororura.audiomarket.dtos.ProductDTO;
-import com.ororura.audiomarket.entities.image.Image;
-import com.ororura.audiomarket.entities.notification.Notification;
-import com.ororura.audiomarket.entities.product.Product;
+import com.ororura.audiomarket.entities.Image;
+import com.ororura.audiomarket.entities.Notification;
+import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

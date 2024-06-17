@@ -1,6 +1,5 @@
-package com.ororura.audiomarket.entities.notification;
+package com.ororura.audiomarket.entities;
 
-import com.ororura.audiomarket.entities.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

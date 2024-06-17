@@ -1,6 +1,6 @@
 package com.ororura.audiomarket.repositories;
 
-import com.ororura.audiomarket.entities.product.Product;
+import com.ororura.audiomarket.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.ororura.audiomarket.controllers;
 
 import com.ororura.audiomarket.dtos.ProductDTO;
-import com.ororura.audiomarket.entities.product.Product;
+import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

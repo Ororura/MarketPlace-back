@@ -1,4 +1,4 @@
-package com.ororura.audiomarket.entities.image;
+package com.ororura.audiomarket.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

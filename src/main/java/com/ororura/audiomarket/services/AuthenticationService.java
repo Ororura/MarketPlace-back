@@ -6,8 +6,6 @@ import com.ororura.audiomarket.entities.user.Role;
 import com.ororura.audiomarket.entities.user.UserEntity;
 import com.ororura.audiomarket.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
     public String signUp(SignUpDTO request) {
@@ -40,7 +37,6 @@ public class AuthenticationService {
     }
 
     public String signIn(SignInDTO signInDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInDTO.getUsername(), signInDTO.getPassword()));
         UserDetails user = userService.loadUserByUsername(signInDTO.getUsername());
         return jwtUtils.generateTokenFromUsername(user);
     }

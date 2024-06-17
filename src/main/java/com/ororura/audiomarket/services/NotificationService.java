@@ -1,6 +1,6 @@
 package com.ororura.audiomarket.services;
 
-import com.ororura.audiomarket.entities.notification.Notification;
+import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.repositories.NotificationRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

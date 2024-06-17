@@ -1,6 +1,6 @@
 package com.ororura.audiomarket.controllers;
 
-import com.ororura.audiomarket.entities.notification.Notification;
+import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
