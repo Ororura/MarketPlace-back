@@ -41,21 +41,24 @@ public class SecurityConfig {
                 authorizeRequests
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/sign-in").permitAll()
-                        .anyRequest().authenticated());
+                        .requestMatchers("/ws/**").permitAll()
+                        .anyRequest()
+                        .authenticated());
+
         http.sessionManagement(
                 session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS)
         );
+
         http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
         http.headers(headers -> headers
-                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin
-                )
+                .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
         );
+
         http.csrf(AbstractHttpConfigurer::disable);
         http.addFilterBefore(authenticationJwtTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
-
 
         return http.build();
     }
