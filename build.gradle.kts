@@ -25,6 +25,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.5")
     implementation("org.postgresql:postgresql")
     implementation ("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("net.coobird:thumbnailator:0.4.20")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     compileOnly ("org.projectlombok:lombok:1.18.32")
