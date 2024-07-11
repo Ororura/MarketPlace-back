@@ -3,7 +3,6 @@ package com.ororura.audiomarket.controllers;
 import com.ororura.audiomarket.dtos.ProductDTO;
 import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,11 +17,9 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-
 
     @PreAuthorize("hasRole('user')")
     @GetMapping
@@ -31,7 +28,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
+    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product,
+            @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
             return ResponseEntity.status(HttpStatus.OK).build();

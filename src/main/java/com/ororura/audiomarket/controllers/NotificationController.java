@@ -2,7 +2,6 @@ package com.ororura.audiomarket.controllers;
 
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.services.NotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,8 +17,7 @@ import java.util.List;
 public class NotificationController {
 
     private final NotificationService notificationService;
-
-    @Autowired
+    
     public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }

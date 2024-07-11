@@ -1,7 +1,6 @@
 package com.ororura.audiomarket.controllers;
 
 import com.ororura.audiomarket.services.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +17,6 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @Autowired
     public ImageController(ImageService imageService) {
         this.imageService = imageService;
     }
@@ -34,8 +32,5 @@ public class ImageController {
 
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
     }
-
-
-
 
 }

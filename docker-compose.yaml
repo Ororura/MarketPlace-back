@@ -16,3 +16,21 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - '5050:80'
+
+  backend:
+    image: 'ororura/audio:1.0.0'
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/audio
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - '8080:8080'
+
+  frontend:
+    image: 'ororura/audio-front:1.0.0'
+    depends_on:
+      - backend
+    ports:
+      - '3000:3000'
