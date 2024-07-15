@@ -3,7 +3,6 @@ package com.ororura.audiomarket.services;
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.repositories.NotificationRepo;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 public class NotificationService {
     private final NotificationRepo notificationRepo;
 
-    @Autowired
     public NotificationService(NotificationRepo notificationRepo) {
         this.notificationRepo = notificationRepo;
     }

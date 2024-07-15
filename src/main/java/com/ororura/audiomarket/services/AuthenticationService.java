@@ -1,5 +1,6 @@
 package com.ororura.audiomarket.services;
 
+import com.ororura.audiomarket.dtos.JwtResponse;
 import com.ororura.audiomarket.dtos.SignInDTO;
 import com.ororura.audiomarket.dtos.SignUpDTO;
 import com.ororura.audiomarket.entities.user.Role;
@@ -18,7 +19,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
-    public String signUp(SignUpDTO request) {
+    public JwtResponse signUp(SignUpDTO request) {
 
         UserDetails user = User.builder()
                 .username(request.getUsername())
@@ -31,13 +32,18 @@ public class AuthenticationService {
         newUser.setUsername(request.getUsername());
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
 
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setResponse(jwtUtils.generateTokenFromUsername(user));
+
         userService.createUser(newUser);
 
-        return jwtUtils.generateTokenFromUsername(user);
+        return jwtResponse;
     }
 
-    public String signIn(SignInDTO signInDTO) {
+    public JwtResponse signIn(SignInDTO signInDTO) {
         UserDetails user = userService.loadUserByUsername(signInDTO.getUsername());
-        return jwtUtils.generateTokenFromUsername(user);
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setResponse(jwtUtils.generateTokenFromUsername(user));
+        return jwtResponse;
     }
 }

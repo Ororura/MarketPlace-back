@@ -4,7 +4,6 @@ import com.ororura.audiomarket.entities.Image;
 import com.ororura.audiomarket.repositories.ImageRepo;
 import jakarta.transaction.Transactional;
 import net.coobird.thumbnailator.Thumbnails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ import java.io.InputStream;
 public class ImageService {
     private final ImageRepo imageRepo;
 
-    @Autowired
     public ImageService(ImageRepo imageRepo) {
         this.imageRepo = imageRepo;
     }

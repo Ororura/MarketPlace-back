@@ -6,7 +6,6 @@ import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +18,6 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final NotificationService notificationService;
 
-    @Autowired
     public ProductService(ProductRepo productRepo, NotificationService notificationService) {
         this.productRepo = productRepo;
         this.notificationService = notificationService;

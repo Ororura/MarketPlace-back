@@ -1,5 +1,6 @@
 package com.ororura.audiomarket.controllers;
 
+import com.ororura.audiomarket.dtos.JwtResponse;
 import com.ororura.audiomarket.dtos.SignUpDTO;
 import com.ororura.audiomarket.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ public class RegistrationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping
-    public String registration(@RequestBody SignUpDTO signUpDTO) {
+    public JwtResponse registration(@RequestBody SignUpDTO signUpDTO) {
         return this.authenticationService.signUp(signUpDTO);
     }
 }

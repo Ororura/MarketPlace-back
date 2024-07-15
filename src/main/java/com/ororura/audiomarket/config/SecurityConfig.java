@@ -1,6 +1,5 @@
 package com.ororura.audiomarket.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +24,6 @@ public class SecurityConfig {
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    @Autowired
     public SecurityConfig(AuthEntryPointJwt unauthorizedHandler) {
         this.unauthorizedHandler = unauthorizedHandler;
     }
@@ -42,9 +40,9 @@ public class SecurityConfig {
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/sign-in").permitAll()
                         .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/products/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/notifications").permitAll()
+//                        .requestMatchers("/products/**").permitAll()
+//                        .requestMatchers("/images/**").permitAll()
+//                        .requestMatchers("/notifications").permitAll()
                         .anyRequest()
                         .authenticated());
 
