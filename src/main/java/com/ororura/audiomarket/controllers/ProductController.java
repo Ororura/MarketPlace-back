@@ -27,6 +27,7 @@ public class ProductController {
         return new ResponseEntity<>(this.productService.getAllProducts(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('user')")
     @PostMapping
     public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product,
             @RequestPart(name = "file") MultipartFile file) {
@@ -38,6 +39,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('user')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id) {
         this.productService.deleteProduct(id);

@@ -40,9 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/registration").permitAll()
                         .requestMatchers("/sign-in").permitAll()
                         .requestMatchers("/ws/**").permitAll()
-//                        .requestMatchers("/products/**").permitAll()
-//                        .requestMatchers("/images/**").permitAll()
-//                        .requestMatchers("/notifications").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .anyRequest()
                         .authenticated());
 
