@@ -20,30 +20,36 @@ public class AuthenticationService {
     private final JwtUtils jwtUtils;
 
     public JwtResponse signUp(SignUpDTO request) {
-
-        UserDetails user = User.builder()
-                .username(request.getUsername())
-                .roles("user")
-                .password(passwordEncoder.encode(request.getPassword()))
-                .build();
-
-        UserEntity newUser = new UserEntity();
-        newUser.setRole(Role.ROLE_USER);
-        newUser.setUsername(request.getUsername());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        JwtResponse jwtResponse = new JwtResponse();
-        jwtResponse.setResponse(jwtUtils.generateTokenFromUsername(user));
-
+        UserDetails user = buildUser(request);
+        UserEntity newUser = setUpNewUser(request);
         userService.createUser(newUser);
-
-        return jwtResponse;
+        return generateToken(user);
     }
 
     public JwtResponse signIn(SignInDTO signInDTO) {
         UserDetails user = userService.loadUserByUsername(signInDTO.getUsername());
+        return generateToken(user);
+    }
+
+    public UserEntity setUpNewUser(SignUpDTO r) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setRole(Role.ROLE_USER);
+        userEntity.setUsername(r.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(r.getPassword()));
+        return userEntity;
+    }
+
+    public UserDetails buildUser(SignUpDTO r) {
+        return User.builder()
+                .username(r.getUsername())
+                .roles("user")
+                .password(passwordEncoder.encode(r.getPassword()))
+                .build();
+    }
+
+    public JwtResponse generateToken(UserDetails u) {
         JwtResponse jwtResponse = new JwtResponse();
-        jwtResponse.setResponse(jwtUtils.generateTokenFromUsername(user));
+        jwtResponse.setResponse(jwtUtils.generateTokenFromUsername(u));
         return jwtResponse;
     }
 }

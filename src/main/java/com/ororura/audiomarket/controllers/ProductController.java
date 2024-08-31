@@ -29,10 +29,10 @@ public class ProductController {
 
     @PreAuthorize("hasRole('user')")
     @PostMapping
-    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product,
-            @RequestPart(name = "file") MultipartFile file) {
+    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
+            productService.setNotification(product);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -5,7 +5,7 @@ import com.ororura.audiomarket.entities.Image;
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.repositories.ProductRepo;
-import jakarta.transaction.Transactional;
+import com.ororura.audiomarket.utils.NotificationStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,28 +23,27 @@ public class ProductService {
         this.notificationService = notificationService;
     }
 
-    @Transactional
     public List<ProductDTO> getAllProducts() {
         return convertToDTO(this.productRepo.findAll());
     }
 
-    @Transactional
     public void saveProduct(Product product, MultipartFile file) throws IOException {
-        Notification notification = new Notification();
-        notification.setProduct(product);
-        notification.setStatus("created");
-        notificationService.saveNotifications(notification);
-
-        product.setImage(fileToImage(file));
+        product.setImage(convertFileToImage(file));
         productRepo.save(product);
     }
 
-    @Transactional
+    public void setNotification(Product product) {
+        Notification notification = new Notification();
+        notification.setProduct(product);
+        notification.setStatus(NotificationStatus.CREATED);
+        notificationService.saveNotifications(notification);
+    }
+
     public void deleteProduct(Long id) {
         this.productRepo.deleteById(id);
     }
 
-    public Image fileToImage(MultipartFile file) throws IOException {
+    public Image convertFileToImage(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setData(file.getBytes());
         image.setName(file.getOriginalFilename());
@@ -59,11 +58,14 @@ public class ProductService {
             productDTO.setTitle(product.getTitle());
             productDTO.setCategory(product.getCategory());
             productDTO.setPrice(product.getPrice());
+
             if (product.getImage() != null) {
                 productDTO.setImageName(product.getImage().getName());
             }
+
             productDTO.setRate(product.getRate());
             return productDTO;
         }).collect(Collectors.toList());
     }
+
 }

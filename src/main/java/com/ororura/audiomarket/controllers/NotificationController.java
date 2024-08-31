@@ -2,7 +2,6 @@ package com.ororura.audiomarket.controllers;
 
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.services.NotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -20,7 +19,6 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @Autowired
     public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
@@ -28,7 +26,10 @@ public class NotificationController {
     @PreAuthorize("hasRole('user')")
     @GetMapping
     public ResponseEntity<List<Notification>> getNotifications() {
-        return new ResponseEntity<>(this.notificationService.findAllNotifications(), HttpStatus.OK);
+        return new ResponseEntity<>(
+            this.notificationService.findAllNotifications(),
+            HttpStatus.OK
+        );
     }
 
     @PreAuthorize("hasRole('user')")
@@ -37,5 +38,4 @@ public class NotificationController {
     public List<Notification> getNotification() {
         return this.notificationService.findAllNotifications();
     }
-
 }

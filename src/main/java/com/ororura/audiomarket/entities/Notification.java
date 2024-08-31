@@ -1,5 +1,6 @@
 package com.ororura.audiomarket.entities;
 
+import com.ororura.audiomarket.utils.NotificationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Notification {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Product product;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private NotificationStatus status;
 }

@@ -2,7 +2,6 @@ package com.ororura.audiomarket.services;
 
 import com.ororura.audiomarket.entities.Image;
 import com.ororura.audiomarket.repositories.ImageRepo;
-import jakarta.transaction.Transactional;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -22,22 +21,31 @@ public class ImageService {
         this.imageRepo = imageRepo;
     }
 
-    @Transactional
     public Resource getImage(String name, float scaleFloat) {
-        try {
-            Image image = imageRepo.findByName(name).get(0);
-            InputStream is = new ByteArrayInputStream(image.getData());
-            BufferedImage newBi = ImageIO.read(is);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            Thumbnails.of(newBi)
-                    .outputFormat("png")
-                    .scale(scaleFloat)
-                    .toOutputStream(baos);
+        Image image = imageRepo.findByName(name).get(0);
+        InputStream inputStream = new ByteArrayInputStream(image.getData());
+        BufferedImage bufferedImage = readImage(inputStream);
+        return new ByteArrayResource(scaleImage(bufferedImage, scaleFloat / 100).toByteArray());
+    }
 
-            return new ByteArrayResource(baos.toByteArray());
-        } catch (java.io.IOException e) {
+    public BufferedImage readImage(InputStream inputStream) {
+        try {
+            return ImageIO.read(inputStream);
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }
 
+    public ByteArrayOutputStream scaleImage(BufferedImage image, float scaleFloat) {
+        try {
+            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+            Thumbnails.of(image)
+                    .outputFormat("png")
+                    .scale(scaleFloat)
+                    .toOutputStream(byteArray);
+            return byteArray;
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }
