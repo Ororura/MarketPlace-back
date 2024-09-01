@@ -5,7 +5,8 @@ import com.ororura.audiomarket.entities.Image;
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.entities.Product;
 import com.ororura.audiomarket.repositories.ProductRepo;
-import com.ororura.audiomarket.utils.NotificationStatus;
+import com.ororura.audiomarket.services.notification.NotificationService;
+import com.ororura.audiomarket.services.notification.NotificationStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

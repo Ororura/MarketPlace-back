@@ -1,7 +1,7 @@
 package com.ororura.audiomarket.controllers;
 
 import com.ororura.audiomarket.entities.Notification;
-import com.ororura.audiomarket.services.NotificationService;
+import com.ororura.audiomarket.services.notification.NotificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;

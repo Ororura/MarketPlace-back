@@ -1,4 +1,4 @@
-package com.ororura.audiomarket.services;
+package com.ororura.audiomarket.services.notification;
 
 import com.ororura.audiomarket.entities.Notification;
 import com.ororura.audiomarket.repositories.NotificationRepo;
