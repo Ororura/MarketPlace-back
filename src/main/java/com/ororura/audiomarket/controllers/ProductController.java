@@ -32,7 +32,7 @@ public class ProductController {
     public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
-            productService.setNotification(product);
+            productService.saveNotification(product);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

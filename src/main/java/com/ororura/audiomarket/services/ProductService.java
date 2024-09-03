@@ -8,6 +8,7 @@ import com.ororura.audiomarket.repositories.ProductRepo;
 import com.ororura.audiomarket.services.notification.NotificationService;
 import com.ororura.audiomarket.services.notification.NotificationStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,6 +25,19 @@ public class ProductService {
         this.notificationService = notificationService;
     }
 
+    @Transactional
+    public void saveNotification(Product product) {
+        Notification notification = new Notification();
+        notification.setProduct(product);
+        notification.setStatus(NotificationStatus.CREATED);
+        notificationService.saveNotifications(notification);
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        this.productRepo.deleteById(id);
+    }
+
     public List<ProductDTO> getAllProducts() {
         return convertToDTO(this.productRepo.findAll());
     }
@@ -31,17 +45,6 @@ public class ProductService {
     public void saveProduct(Product product, MultipartFile file) throws IOException {
         product.setImage(convertFileToImage(file));
         productRepo.save(product);
-    }
-
-    public void setNotification(Product product) {
-        Notification notification = new Notification();
-        notification.setProduct(product);
-        notification.setStatus(NotificationStatus.CREATED);
-        notificationService.saveNotifications(notification);
-    }
-
-    public void deleteProduct(Long id) {
-        this.productRepo.deleteById(id);
     }
 
     public Image convertFileToImage(MultipartFile file) throws IOException {

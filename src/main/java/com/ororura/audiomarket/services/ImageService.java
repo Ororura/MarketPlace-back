@@ -6,6 +6,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -21,11 +22,12 @@ public class ImageService {
         this.imageRepo = imageRepo;
     }
 
+    @Transactional
     public Resource getImage(String name, float scaleFloat) {
         Image image = imageRepo.findByName(name).get(0);
         InputStream inputStream = new ByteArrayInputStream(image.getData());
         BufferedImage bufferedImage = readImage(inputStream);
-        return new ByteArrayResource(scaleImage(bufferedImage, scaleFloat / 100).toByteArray());
+        return scaleImage(bufferedImage, scaleFloat / 100);
     }
 
     public BufferedImage readImage(InputStream inputStream) {
@@ -36,14 +38,14 @@ public class ImageService {
         }
     }
 
-    public ByteArrayOutputStream scaleImage(BufferedImage image, float scaleFloat) {
+    public ByteArrayResource scaleImage(BufferedImage image, float scaleFloat) {
         try {
             ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
             Thumbnails.of(image)
                     .outputFormat("png")
                     .scale(scaleFloat)
                     .toOutputStream(byteArray);
-            return byteArray;
+            return new ByteArrayResource(byteArray.toByteArray());
         } catch (java.io.IOException e) {
             throw new IllegalStateException(e);
         }
