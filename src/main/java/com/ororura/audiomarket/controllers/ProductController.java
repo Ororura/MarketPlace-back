@@ -29,7 +29,7 @@ public class ProductController {
 
     @PreAuthorize("hasRole('user')")
     @PostMapping
-    public ResponseEntity<Object> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
+    public ResponseEntity<Void> upload(@RequestPart(name = "product") Product product, @RequestPart(name = "file") MultipartFile file) {
         try {
             productService.saveProduct(product, file);
             productService.saveNotification(product);
@@ -41,7 +41,7 @@ public class ProductController {
 
     @PreAuthorize("hasRole('user')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
         this.productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
